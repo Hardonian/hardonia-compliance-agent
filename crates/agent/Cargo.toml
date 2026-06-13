@@ -1,0 +1,38 @@
+[package]
+name = "compliance_agent"
+version = { workspace = true }
+edition = "2021"
+license = { workspace = true }
+repository = { workspace = true }
+publish = false
+
+[dependencies]
+tokio = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# Database
+sqlx = { workspace = true }
+
+# HTTP
+reqwest = { workspace = true }
+
+# Agent core
+rig = { workspace = true }
+async-openai = { workspace = true }
+
+# Internal crates
+compliance_domain = { path = "../domain" }
+compliance_db = { path = "../db" }
+compliance_integrations = { path = "../integrations" }
+compliance_shared = { path = "../shared" }
+
+[dev-dependencies]
+tokio = { workspace = true }
+mockall = "0.13"

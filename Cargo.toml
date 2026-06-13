@@ -1,0 +1,88 @@
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Hardonian/hardonia-compliance-agent"
+
+[workspace.dependencies]
+# Core runtime
+tokio = { version = "1.38", features = ["full"] }
+axum = { version = "0.7" }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_with = "3.4"
+
+# Database
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid", "rust_decimal", "json", "macros", "migrate"], default-features = false }
+redis = { version = "0.25", features = ["connection-manager", "tokio-comp", "script", "streams"] }
+
+# AI/ML
+rig = "0.38"  # LLM abstraction
+async-openai = "0.20"
+
+# Config
+config = "0.13"
+figment = { version = "0.10", features = ["toml", "env"] }
+
+# Observability
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt", "json", "registry"] }
+tracing-opentelemetry = "0.22"
+opentelemetry = { version = "0.21", features = ["metrics", "trace"] }
+opentelemetry-otlp = { version = "0.13", features = ["tonic"] }
+metrics = "0.21"
+metrics-exporter-prometheus = "0.15"
+
+# Utilities
+uuid = { version = "1.7", features = ["v4", "v7", "serde", "fast-rng"] }
+chrono = { version = "0.4", features = ["serde"] }
+rust_decimal = { version = "1.33", features = ["serde", "std"] }
+thiserror = "1.0"
+anyhow = "1.0"
+once_cell = "1.19"
+parking_lot = "0.12"
+dashmap = "5.5"
+async-trait = "0.1.77"
+futures = "0.3"
+bytes = "1.6"
+url = { version = "2.4", features = ["serde"] }
+
+# HTTP client for external APIs
+reqwest = { version = "0.13", features = ["json", "rustls", "rustls-no-provider", "query"] }
+
+# Background jobs
+cron = "0.9"
+
+# Testing
+proptest = "1.4"
+testcontainers = "0.19"
+opentelemetry_sdk = { version = "0.21", features = ["rt-tokio", "trace"] }
+opentelemetry_http = { version = "0.14", features = ["reqwest"] }
+
+[workspace.lints.rust]
+unused_crate_dependencies = "warn"
+unused_imports = "warn"
+unused_variables = "warn"
+
+[workspace.lints.clippy]
+all = "warn"
+pedantic = "warn"
+nursery = "warn"
+cargo = "warn"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
+overflow-checks = true

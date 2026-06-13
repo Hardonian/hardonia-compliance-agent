@@ -1,0 +1,34 @@
+[package]
+name = "compliance_api"
+version = { workspace = true }
+edition = "2021"
+license = { workspace = true }
+repository = { workspace = true }
+publish = false
+
+[dependencies]
+tokio = { workspace = true }
+axum = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+metrics = { workspace = true }
+sqlx = { workspace = true }
+
+compliance_agent = { path = "../agent" }
+compliance_domain = { path = "../domain" }
+compliance_db = { path = "../db" }
+compliance_shared = { path = "../shared" }
+config = { workspace = true }
+figment = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }
+axum = { workspace = true }
+serde_json = { workspace = true }
