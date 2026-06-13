@@ -35,6 +35,8 @@ pub struct RedisConfig {
 pub struct LlmConfig {
     pub provider: String,
     pub model: String,
+    // SECURITY: In production, use `Secret<String>` from the `secrecy` crate
+    // to prevent accidental logging/serialization of API keys.
     pub api_key: String,
     pub base_url: Option<String>,
     pub temperature: f32,
@@ -51,6 +53,8 @@ pub struct IntegrationsConfig {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct ApiIntegrationConfig {
     pub base_url: String,
+    // SECURITY: In production, use `Secret<String>` from the `secrecy` crate
+    // to prevent accidental logging/serialization of API keys.
     pub api_key: String,
     pub timeout_seconds: u64,
 }
@@ -75,7 +79,7 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             server: ServerConfig {
-                host: "0.0.0.0".to_string(),
+                host: "127.0.0.1".to_string(),
                 port: 8080,
                 workers: 4,
             },

@@ -15,17 +15,16 @@ pub struct RecallIntelligenceClient {
 }
 
 impl RecallIntelligenceClient {
-    pub fn new(base_url: String, api_key: String) -> Self {
+    pub fn new(base_url: String, api_key: String) -> Result<Self> {
         let client = Client::builder()
             .timeout(std::time::Duration::from_secs(30))
-            .build()
-            .expect("Failed to create HTTP client");
+            .build()?;
         
-        Self {
+        Ok(Self {
             client,
             base_url,
             api_key,
-        }
+        })
     }
 
     pub async fn fetch_regulatory_changes(
@@ -78,17 +77,16 @@ pub struct TradeComplianceClient {
 }
 
 impl TradeComplianceClient {
-    pub fn new(base_url: String, api_key: String) -> Self {
+    pub fn new(base_url: String, api_key: String) -> Result<Self> {
         let client = Client::builder()
             .timeout(std::time::Duration::from_secs(30))
-            .build()
-            .expect("Failed to create HTTP client");
+            .build()?;
         
-        Self {
+        Ok(Self {
             client,
             base_url,
             api_key,
-        }
+        })
     }
 
     pub async fn fetch_sanctions_updates(
@@ -168,17 +166,16 @@ pub struct SettlerClient {
 }
 
 impl SettlerClient {
-    pub fn new(base_url: String, api_key: String) -> Self {
+    pub fn new(base_url: String, api_key: String) -> Result<Self> {
         let client = Client::builder()
             .timeout(std::time::Duration::from_secs(30))
-            .build()
-            .expect("Failed to create HTTP client");
+            .build()?;
         
-        Self {
+        Ok(Self {
             client,
             base_url,
             api_key,
-        }
+        })
     }
 
     pub async fn create_compliance_task(&self, task: &ComplianceTaskRequest) -> Result<Uuid> {

@@ -11,10 +11,10 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub fn new(pool: PgPool) -> Self {
-        let config = Arc::new(compliance_shared::Config::load().expect("Failed to load config"));
+    pub fn new(pool: PgPool) -> anyhow::Result<Self> {
+        let config = Arc::new(compliance_shared::Config::load()?);
         let repos = PostgresRepositories::new(pool.clone());
         let agent = Arc::new(ComplianceAgent::new(config, pool));
-        Self { agent, db: repos }
+        Ok(Self { agent, db: repos })
     }
 }
