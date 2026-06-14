@@ -6,6 +6,7 @@ use axum::{
     Router,
 };
 use serde_json::{json, Value};
+use sqlx::Row;
 use uuid::Uuid;
 
 use crate::state::AppState;
